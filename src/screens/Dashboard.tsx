@@ -4,33 +4,37 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import * as api from '../api/Firebase';
 
-export default function Data() {
+export default function SignOut() {
 
     const navigation = useNavigation();
 
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const email = 'caioandeanderson022@gmail.com';
-  const nome = 'Anderson';
   const senha = 'caio100';
 
 
-  async function handleCreateUser() {
-    setLoading(!loading);
-    setDisabled(!disabled);
-    await api.createUser(email, nome, senha);
-    setLoading(false);
-    setDisabled(false);
-    navigation.navigate('Login');
+   function handleSignOut() {
+    //    api.signIn(email, senha).then((response) => {
+    //         console.log(response)
+    //    });
+
+      
+    // setLoading(!loading);
+    // setDisabled(!disabled);
+    // await api.createUser(email, nome, senha);
+    // setLoading(false);
+    // setDisabled(false);
+    // navigation.navigate('Login');
   }
 
   return (
     <View style={styles.container}>
 
       <View>
-        <TouchableOpacity style={styles.button} onPress={handleCreateUser} disabled={disabled}>
+        <TouchableOpacity style={styles.button} onPress={handleSignOut} disabled={disabled}>
           {!loading ?
-            <Text style={styles.text}>Criar dados</Text> :
+            <Text style={styles.text}>SignOut</Text> :
             <ActivityIndicator size='large' color="#fff" />
           }
         </TouchableOpacity>
