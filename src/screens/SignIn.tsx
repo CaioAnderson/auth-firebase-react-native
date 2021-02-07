@@ -7,7 +7,7 @@ import AuthContext from '../contexts/auth';
 
 export default function SignIn() {
 
-  const { signed, signIn } = useContext(AuthContext);
+  const { signed, user, signIn } = useContext(AuthContext);
 
   console.log(signed);
 
@@ -20,7 +20,7 @@ export default function SignIn() {
 
 
     async function handleSignIn() {
-     console.log(await signIn(email, senha));
+     await signIn(email, senha);
 
     //  const {  } = response;
      

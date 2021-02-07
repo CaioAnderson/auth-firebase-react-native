@@ -5,6 +5,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const {Navigator, Screen} = createStackNavigator();
 
+
+import CreateDataUser from '../screens/Data';
+
 const AuthRoutes = () => {
     return(
         <Navigator screenOptions={{headerShown: false}}>

@@ -1,42 +1,23 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text, ActivityIndicator } from 'react-native';
+import React, { useContext } from 'react';
+import AuthContext from '../contexts/auth';
+import { View, StyleSheet, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
-import * as api from '../api/Firebase';
+
 
 export default function SignOut() {
 
-    const navigation = useNavigation();
-
-  const [loading, setLoading] = useState(false);
-  const [disabled, setDisabled] = useState(false);
-  const email = 'caioandeanderson022@gmail.com';
-  const senha = 'caio100';
-
+  const { signOut } = useContext(AuthContext);
 
    function handleSignOut() {
-    //    api.signIn(email, senha).then((response) => {
-    //         console.log(response)
-    //    });
-
-      
-    // setLoading(!loading);
-    // setDisabled(!disabled);
-    // await api.createUser(email, nome, senha);
-    // setLoading(false);
-    // setDisabled(false);
-    // navigation.navigate('Login');
+    signOut();
   }
 
   return (
     <View style={styles.container}>
 
       <View>
-        <TouchableOpacity style={styles.button} onPress={handleSignOut} disabled={disabled}>
-          {!loading ?
-            <Text style={styles.text}>SignOut</Text> :
-            <ActivityIndicator size='large' color="#fff" />
-          }
+        <TouchableOpacity style={styles.button} onPress={handleSignOut} >
+            <Text style={styles.text}>SignOut</Text>
         </TouchableOpacity>
       </View>
     </View>

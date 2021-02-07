@@ -1,15 +1,14 @@
-import React from 'react';
-
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useContext } from 'react';
+import AuthContext from '../contexts/auth';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
-const { Navigator, Screen } = createStackNavigator();
-
-import CreateDataUser from '../screens/Data';
-import SignIn from '../screens/SignIn';
+import AppRoutes from './app.routes';
 import AuthRoutes from './auth.routes';
 
 export default function Routes() {
-    return <AuthRoutes />;
+
+    const { signed } = useContext(AuthContext);
+
+    return signed ? <AppRoutes /> : <AuthRoutes />;
 }

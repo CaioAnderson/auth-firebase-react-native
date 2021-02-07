@@ -2,7 +2,6 @@
 import firebase from 'firebase';
 import Firebase from "../config/keys";
 
-
 export async function createUser(email: string, nome: string, senha: string) {
 
     let error = false;
@@ -23,7 +22,12 @@ export async function createUser(email: string, nome: string, senha: string) {
         if (error == false) {
             try {
                 const database = Firebase.database().ref('User').child(`${UID}`);
-                const user = { email, nome, senha };
+                const user = {
+                    token: UID,
+                    usuario: {
+                        email, nome, senha
+                    }
+                };
 
                 database.push(user).then(() => {
                     console.info('Sucesso');
@@ -45,7 +49,6 @@ export async function signIn(email: string, senha: string) {
 
     let uid;
     let error = false;
-    let data = {};
 
     await Firebase.auth().signInWithEmailAndPassword(email, senha).then(() => {
         uid = Firebase.auth().currentUser?.uid;
@@ -56,27 +59,12 @@ export async function signIn(email: string, senha: string) {
     });
 
     if (!error) {
-        const UID = uid;
-
         const getUser = Firebase.database().ref('/User/' + uid);
-        await getUser.once('child_added', (snapshot) => {
-            try {
-               const { email, nome } = snapshot.val();
-               data = {
-                   token : UID,
-                   user : {
-                    nomeUser : nome,
-                    emailUser : email
-                   }
-               }
-            } catch (error) {
-                console.log(error)
-            }
+
+        return await getUser.once('child_added', (snapshot) => {
+            snapshot.val();
 
         });
 
     }
-
-    return data;
-
 }
