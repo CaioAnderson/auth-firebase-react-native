@@ -6,7 +6,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function SignOut() {
 
-  const { signOut } = useContext(AuthContext);
+  const { signOut, user } = useContext(AuthContext);
+
 
    function handleSignOut() {
     signOut();
@@ -16,6 +17,7 @@ export default function SignOut() {
     <View style={styles.container}>
 
       <View>
+        <Text style={{alignSelf:'center'}}>{user?.nome}</Text>
         <TouchableOpacity style={styles.button} onPress={handleSignOut} >
             <Text style={styles.text}>SignOut</Text>
         </TouchableOpacity>

@@ -1,17 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text, ActivityIndicator } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
 
 import AuthContext from '../contexts/auth';
 
 export default function SignIn() {
 
-  const { signed, user, signIn } = useContext(AuthContext);
+  const { signed, signIn } = useContext(AuthContext);
 
   console.log(signed);
-
-  const navigation = useNavigation();
 
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -19,23 +16,19 @@ export default function SignIn() {
   const senha = 'caio100';
 
 
-    async function handleSignIn() {
-     await signIn(email, senha);
+  async function handleSignIn() {
+   
+    setLoading(!loading);
+    setDisabled(!disabled);
+    await signIn(email, senha);
+    setLoading(false);
+    setDisabled(false);
 
-    //  const {  } = response;
-     
 
-    // setLoading(!loading);
-    // setDisabled(!disabled);
-    // await api.createUser(email, nome, senha);
-    // setLoading(false);
-    // setDisabled(false);
-    // navigation.navigate('Login');
   }
 
   return (
     <View style={styles.container}>
-
       <View>
         <TouchableOpacity style={styles.button} onPress={handleSignIn} disabled={disabled}>
           {!loading ?
